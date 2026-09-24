@@ -87,7 +87,9 @@ img, svg { display: block; max-width: 100%; }
   flex-direction: column;
   /* tela cheia menos as duas faixas: a faixa de baixo já aparece na primeira dobra */
   min-height: calc(100vh - 2 * var(--marquee-h));
-  padding: 4rem 0;
+  /* conteúdo centralizado na altura: a sobra se divide entre cima e baixo */
+  justify-content: center;
+  padding: 3rem 0 2.5rem;
   background: #000 url('Assets/bg-desktop.webp?v=2') top center / cover no-repeat;
 }
 
@@ -293,7 +295,8 @@ img, svg { display: block; max-width: 100%; }
 /* tablet e celular: foto em cima, texto centralizado embaixo */
 @media (max-width: 1024px) {
   .hero {
-    padding: 75% 0 4rem;
+    min-height: 0;
+    padding: 75% 0 2.5rem;
     background-image: url('Assets/bg-mobile.webp');
     background-size: contain;
   }
@@ -319,7 +322,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 @media (max-width: 767px) {
-  .hero { padding: 75% 1rem 4rem; }
+  .hero { padding: 75% 1rem 2.5rem; }
   .hero-content { width: 100%; }
 
   .brand { width: 46%; }
