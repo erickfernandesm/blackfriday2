@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Friday Solute RH | Live ao vivo</title>
+  <meta name="description" content="A Black Friday da Solute vai ser anunciada ao vivo. Cadastre-se gratuitamente e receba o link da live.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap">
+  <link rel="preload" href="Assets/fonts/anton-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= FAIXA DO TOPO (corre para a direita) ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track marquee-track--right"></div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <main class="hero">
+    <div class="hero-content">
+
+      <div class="hero-head">
+        <img class="brand" src="Assets/blackdasolutelogo.png?v=2" width="1378" height="1130" alt="Black da Solute">
+
+        <ul class="when">
+          <li>
+            <span class="when-icon">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="14" y="14" width="36" height="36" rx="6"/><path d="M50 24H14M21.5 37h.01M28.5 37h.01M35.5 37h.01M42.5 37h.01M21.5 43h.01M28.5 43h.01M35.5 31h.01M42.5 31h.01"/></svg>
+            </span>
+            <span>Dia 04 de Novembro</span>
+          </li>
+          <li>
+            <span class="when-icon">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="12" y="18" width="40" height="28" rx="5"/><path d="M28 26v12l10-6z"/></svg>
+            </span>
+            <span>Ao vivo e online</span>
+          </li>
+        </ul>
+      </div>
+
+      <h1 class="title">A Black Friday da Solute vai ser anunciada <span class="orange">ao vivo</span>.</h1>
+
+      <p class="sub">
+        Só quem estiver na live pega as <strong>MELHORES CONDIÇÕES</strong> do ano em [serviços/planos/cursos],
+        com <strong>BÔNUS EXCLUSIVOS</strong> que somem quando a live termina e <strong>PERGUNTAS AO VIVO</strong>
+        direto com a <span class="orange">Rosemeire Moreira.</span>
+      </p>
+
+      <p class="lead">Cadastre-se para receber o link da live, o lembrete no dia e acesso antecipado às ofertas!</p>
+
+      <div class="cta-row">
+        <div class="cta">
+          <a href="#cadastro" class="btn js-open-form">QUERO ENTRAR NA LISTA DA LIVE</a>
+          <p class="micro">Gratuito · Online · Vagas com acesso antecipado limitado</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FAIXA DO RODAPÉ (corre para a esquerda) ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track marquee-track--left"></div>
+  </div>
+
+  <!-- ================= FORMULÁRIO (modal) ================= -->
+  <div class="modal" id="cadastro" aria-hidden="true">
+    <div class="modal-backdrop js-close-form"></div>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close js-close-form" aria-label="Fechar">&times;</button>
+
+      <form class="lead-form" id="leadForm" novalidate>
+        <h2 id="modal-title">Entre na lista da <span class="orange">live</span></h2>
+        <p class="modal-sub">Receba o link, o lembrete no dia e acesso antecipado às ofertas.</p>
+
+        <label>Nome
+          <input type="text" name="nome" autocomplete="name" required>
+        </label>
+        <label>E-mail
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label>WhatsApp
+          <input type="tel" name="whatsapp" autocomplete="tel" placeholder="(00) 00000-0000" required>
+        </label>
+
+        <p class="form-error" id="formError" hidden></p>
+        <button type="submit" class="btn btn-form">QUERO ENTRAR NA LISTA DA LIVE</button>
+        <p class="micro micro-form">Gratuito · Online · Vagas com acesso antecipado limitado</p>
+      </form>
+
+      <div class="form-success" id="formSuccess" hidden>
+        <h2>Cadastro <span class="orange">confirmado!</span></h2>
+        <p>Você vai receber o link da live e o lembrete no dia. Fique de olho no seu e-mail e WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
