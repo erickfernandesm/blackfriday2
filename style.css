@@ -90,7 +90,7 @@ img, svg { display: block; max-width: 100%; }
   /* conteúdo centralizado na altura: a sobra se divide entre cima e baixo */
   justify-content: center;
   padding: 3rem 0 2.5rem;
-  background: #000 url('Assets/bg-desktop.webp?v=2') top center / cover no-repeat;
+  background: #000 url('Assets/bg-desktop.webp?v=3') top center / cover no-repeat;
 }
 
 .hero-content {
