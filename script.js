@@ -1,6 +1,11 @@
-// Endereço para onde os leads serão enviados (ex.: webhook do RD Station,
-// Zapier, Make, Google Apps Script). Deixe vazio para apenas simular o envio.
-const LEAD_ENDPOINT = '';
+// Webhook da Sellflux que recebe o lead (nome e WhatsApp)
+const WEBHOOK_URL = 'https://webhook.sellflux.app/v2/webhook/custom/42f89b80303c14260ee75b055e2d468b';
+
+// Para onde a pessoa vai depois de se cadastrar
+const WHATSAPP_URL = 'https://wa.me/5532999501615?text=Quero%20entrar%20no%20Grupo%20da%20Black%20da%20Solute';
+
+// Tempo máximo esperando o webhook antes de redirecionar mesmo assim (ms)
+const WEBHOOK_TIMEOUT = 4000;
 
 // Abre o formulário sozinho depois de X segundos na página (0 = desativado).
 // Aparece uma única vez por visitante e nunca para quem já abriu ou se cadastrou.
@@ -40,6 +45,7 @@ const modal = document.getElementById('cadastro');
 const form = document.getElementById('leadForm');
 const success = document.getElementById('formSuccess');
 const errorBox = document.getElementById('formError');
+const whatsLink = document.getElementById('whatsLink');
 
 // localStorage pode falhar (aba anônima, cookies bloqueados): nesse caso só ignora
 const storage = {
@@ -85,14 +91,11 @@ form.addEventListener('submit', async e => {
   e.preventDefault();
   errorBox.hidden = true;
 
-  const data = {
-    nome: form.nome.value.trim(),
-    email: form.email.value.trim(),
-    whatsapp: form.whatsapp.value.trim(),
-  };
+  const nome = form.nome.value.trim();
+  const digits = form.whatsapp.value.replace(/\D/g, '');
 
-  if (!data.nome || !/^\S+@\S+\.\S+$/.test(data.email) || data.whatsapp.replace(/\D/g, '').length < 10) {
-    errorBox.textContent = 'Preencha nome, e-mail válido e WhatsApp com DDD.';
+  if (!nome || digits.length < 10) {
+    errorBox.textContent = 'Preencha seu nome e o WhatsApp com DDD.';
     errorBox.hidden = false;
     return;
   }
@@ -101,23 +104,30 @@ form.addEventListener('submit', async e => {
   btn.disabled = true;
   btn.textContent = 'ENVIANDO...';
 
+  // telefone no formato internacional: 55 + DDD + número
+  const data = { name: nome, phone: `55${digits}` };
+
+  // keepalive: o envio termina mesmo se a página já estiver indo para o WhatsApp
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT);
   try {
-    if (LEAD_ENDPOINT) {
-      const res = await fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error(res.status);
-    }
-    storage.set('bf_lead_sent', '1');
-    form.hidden = true;
-    success.hidden = false;
-  } catch {
-    errorBox.textContent = 'Não foi possível enviar agora. Tente novamente.';
-    errorBox.hidden = false;
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      keepalive: true,
+      signal: controller.signal,
+    });
+  } catch (err) {
+    // não trava a pessoa: ela entra no grupo mesmo se o webhook falhar
+    console.warn('Falha ao enviar o lead para o webhook:', err);
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'QUERO ENTRAR NA LISTA DA LIVE';
+    clearTimeout(timer);
   }
+
+  storage.set('bf_lead_sent', '1');
+  form.hidden = true;
+  success.hidden = false;
+  whatsLink.href = WHATSAPP_URL;          // botão de reserva se o redirecionamento for bloqueado
+  window.location.href = WHATSAPP_URL;
 });
