@@ -107,6 +107,9 @@ form.addEventListener('submit', async e => {
   // telefone no formato internacional: 55 + DDD + número
   const data = { name: nome, phone: `55${digits}` };
 
+  // conversão no Meta Pixel (dispara antes do webhook para dar tempo de sair antes do redirect)
+  window.fbq?.('track', 'Lead');
+
   // keepalive: o envio termina mesmo se a página já estiver indo para o WhatsApp
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT);
