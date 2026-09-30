@@ -12,7 +12,7 @@ const WEBHOOK_TIMEOUT = 4000;
 const AUTO_OPEN_SECONDS = 25;
 
 // Frases que correm nas faixas do topo e do rodapé (alternam entre si)
-const MARQUEE_PHRASES = ['BLACK FRIDAY SOLUTE', 'CONDIÇÕES EXCLUSIVAS AO VIVO'];
+const MARQUEE_PHRASES = ['BLACK FRIDAY SOLUTE', 'CONDIÇÕES EXCLUSIVAS AO VIVO', 'ACESSO VITALÍCIO'];
 
 // Velocidade das faixas em pixels por segundo (menor = mais devagar)
 const MARQUEE_SPEED = 40;
