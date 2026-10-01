@@ -297,7 +297,7 @@ img, svg { display: block; max-width: 100%; }
   .hero {
     min-height: 0;
     padding: 75% 0 2.5rem;
-    background-image: url('Assets/bg-mobile.webp');
+    background-image: url('Assets/bg-mobile.webp?v=2');
     background-size: contain;
   }
   .hero-content {
@@ -321,17 +321,28 @@ img, svg { display: block; max-width: 100%; }
   .cta-row { justify-content: center; }
 }
 
+/* celular: tudo compactado para o CTA aparecer sem rolar a tela */
 @media (max-width: 767px) {
-  .hero { padding: 75% 1rem 2.5rem; }
-  .hero-content { width: 100%; }
+  /* foto um pouco menor: termina antes e o logo encosta só no fim dela, não no rosto */
+  .hero {
+    padding: 58% 1rem 2.5rem;
+    background-size: 82% auto;
+  }
+  .hero-content { width: 100%; gap: 14px; }
 
-  .brand { width: 58%; }
-  .when { flex-direction: column; gap: 4px; }
-  .when li { font-size: .9rem; gap: 10px; }
-  .when-icon { width: 24px; height: 24px; }
+  .hero-head { gap: 10px; }
+  .brand { width: 38%; }
+  .when { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 6px 14px; }
+  .when li { font-size: .8rem; gap: 6px; }
+  .when-icon { width: 22px; height: 22px; }
 
-  .title { font-size: 2rem; letter-spacing: -1px; }
-  .sub { font-size: 1.1rem; letter-spacing: -.5px; }
+  .title { font-size: 1.75rem; letter-spacing: -1px; }
+
+  /* o botão sobe para logo depois do título; os textos de apoio vêm depois */
+  .cta-row { order: 1; }
+  .sub, .lead { order: 2; }
+
+  .sub { font-size: 1.05rem; letter-spacing: -.5px; }
   .lead.lead { max-width: 100%; }
   .cta-row, .cta { width: 100%; }
   .btn {
